@@ -86,10 +86,62 @@ function renderTask(task) {
     `;
     document.getElementById('taskList').appendChild(li);
 }
+// Function to render the task with a deadline countdown
+function renderTask(task) {
+    const li = document.createElement('li');
+    li.className = task.completed ? 'completed' : '';
+    
+    // Calculate Days Remaining
+    const today = new Date();
+    const deadline = new Date(task.due_date);
+    const diffTime = deadline - today;
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    
+    // Style the deadline tag
+    let dateClass = diffDays < 0 ? 'overdue' : (diffDays <= 3 ? 'soon' : 'on-track');
+    let dateText = diffDays < 0 ? 'Overdue' : (diffDays === 0 ? 'Due Today' : `${diffDays} days left`);
+
+    li.innerHTML = `
+        <div class="task-info" onclick="toggleTask('${task.id}', ${task.completed})">
+            <div class="check-circle"></div>
+            <div class="task-details">
+                <span class="task-label">${task.text}</span>
+                <div class="task-meta">
+                    <span class="badge ${task.priority.toLowerCase()}">${task.priority}</span>
+                    <span class="date-tag ${dateClass}">${dateText}</span>
+                </div>
+            </div>
+        </div>
+        <span class="delete-btn" onclick="deleteTask('${task.id}')">✕</span>
+    `;
+    document.getElementById('taskList').appendChild(li);
+}
+
+// Updated addTask function to include date
+async function addTask() {
+    const text = document.getElementById('taskInput').value;
+    const date = document.getElementById('dateInput').value;
+    const priority = document.getElementById('priorityInput').value;
+    const { data: { user } } = await _supabase.auth.getUser();
+
+    if (!text || !date) return alert("Please fill in task and date");
+
+    const { error } = await _supabase.from('tasks').insert([
+        { 
+            text: text, 
+            due_date: date, 
+            priority: priority, 
+            user_id: user.id 
+        }
+    ]);
+
+    fetchTasks();
+}
 
 // Initialize
 
 checkUser();
+
 
 
 
