@@ -21,7 +21,7 @@
             </div>
         </div>
     </div>
-
+    
     <div id="appMain" style="display: none;" class="layout">
         <aside class="sidebar">
             <div class="side-logo">🎓 Capstone<span>Flow</span></div>
@@ -74,7 +74,15 @@
                     <button onclick="addTask()">Add to List</button>
                 </div>
             </div>
-
+<div class="input-grid">
+    <input type="text" id="taskInput" placeholder="Revision description...">
+    <input type="date" id="dateInput"> <select id="priorityInput">
+        <option value="High">Urgent</option>
+        <option value="Med">Medium</option>
+        <option value="Low">Low</option>
+    </select>
+    <button onclick="addTask()">Add Task</button>
+</div>
             <div class="list-header">
                 <h3>Current Checklist</h3>
             </div>
@@ -86,5 +94,6 @@
     <script src="script.js"></script>
 </body>
 </html>
+
 
 
