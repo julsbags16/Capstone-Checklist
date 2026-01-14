@@ -1,32 +1,41 @@
 const SUPABASE_URL = 'https://uypjfxlkcqukczskdwmt.supabase.co';
 const SUPABASE_KEY = 'sb_publishable_r8TrGXZdB56xhhTjukNZ8g_bxYY2o8U';
-const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 // --- AUTH LOGIC ---
 async function handleSignup() {
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
-    const { data, error } = await supabase.auth.signUp({ email, password });
-    if (error) alert(error.message);
-    else alert("Check your email for confirmation!");
+    
+    // Notice we use _supabase (the renamed variable from the last step)
+    const { data, error } = await _supabase.auth.signUp({
+        email: email,
+        password: password,
+    });
+
+    if (error) {
+        alert("Error: " + error.message);
+    } else {
+        alert("Sign up successful! You can now login.");
+    }
 }
 
 async function handleLogin() {
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
-    const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+    const { data, error } = await _supabase.auth.signInWithPassword({ email, password });
     if (error) alert(error.message);
     else checkUser();
 }
 
 async function handleLogout() {
-    await supabase.auth.signOut();
+    await _supabase.auth.signOut();
     location.reload();
 }
 
 // --- DATABASE LOGIC ---
 async function checkUser() {
-    const { data: { user } } = await supabase.auth.getUser();
+    const { data: { user } } = await _supabase.auth.getUser();
     if (user) {
         document.getElementById('authContainer').style.display = 'none';
         document.getElementById('appMain').style.display = 'flex';
@@ -35,7 +44,7 @@ async function checkUser() {
 }
 
 async function fetchTasks() {
-    const { data: tasks, error } = await supabase.from('tasks').select('*').order('created_at', { ascending: false });
+    const { data: tasks, error } = await _supabase.from('tasks').select('*').order('created_at', { ascending: false });
     if (tasks) {
         document.getElementById('taskList').innerHTML = '';
         tasks.forEach(renderTask);
@@ -45,9 +54,9 @@ async function fetchTasks() {
 async function addTask() {
     const input = document.getElementById('taskInput');
     const priority = document.getElementById('priorityInput').value;
-    const { data: { user } } = await supabase.auth.getUser();
+    const { data: { user } } = await _supabase.auth.getUser();
 
-    const { error } = await supabase.from('tasks').insert([
+    const { error } = await _supabase.from('tasks').insert([
         { text: input.value, priority: priority, user_id: user.id }
     ]);
     
@@ -56,12 +65,12 @@ async function addTask() {
 }
 
 async function toggleTask(id, currentStatus) {
-    await supabase.from('tasks').update({ completed: !currentStatus }).eq('id', id);
+    await _supabase.from('tasks').update({ completed: !currentStatus }).eq('id', id);
     fetchTasks();
 }
 
 async function deleteTask(id) {
-    await supabase.from('tasks').delete().eq('id', id);
+    await _supabase.from('tasks').delete().eq('id', id);
     fetchTasks();
 }
 
@@ -81,6 +90,7 @@ function renderTask(task) {
 // Initialize
 
 checkUser();
+
 
 
 
