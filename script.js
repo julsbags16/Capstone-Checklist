@@ -81,3 +81,4 @@ function renderTask(task) {
 // Initialize
 
 checkUser();
+
