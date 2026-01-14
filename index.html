@@ -25,31 +25,66 @@
     <div id="appMain" style="display: none;" class="layout">
         <aside class="sidebar">
             <div class="side-logo">🎓 Capstone<span>Flow</span></div>
-            <button onclick="handleLogout()" class="logout-btn">Log Out</button>
+            <nav>
+                <div class="nav-item active">🏠 Dashboard</div>
+                <div class="nav-item">📅 Timeline</div>
+                <div class="nav-item">📂 Documents</div>
+            </nav>
+            <button onclick="handleLogout()" class="logout-btn">Sign Out</button>
         </aside>
 
         <main class="main-content">
-            <header>
-                <h1>Revision Hub</h1>
-                <div class="progress-bar-bg"><div id="progressBar" class="progress-bar-fill"></div></div>
+            <header class="dashboard-header">
+                <div>
+                    <h1>Project Workspace</h1>
+                    <p id="userGreeting">Welcome back, Researcher</p>
+                </div>
+                <div class="stat-pill">
+                    <span id="pendingCount">0</span> tasks left
+                </div>
             </header>
 
-            <div class="app-card">
-                <div class="input-container">
-                    <input type="text" id="taskInput" placeholder="New task...">
+            <div class="stats-container">
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span>Completion Progress</span>
+                        <span id="progressPercent">0%</span>
+                    </div>
+                    <div class="progress-bar-bg">
+                        <div id="progressBar" class="progress-bar-fill"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="input-card">
+                <h3>Quick Add Task</h3>
+                <div class="input-grid">
+                    <input type="text" id="taskInput" placeholder="Describe the revision needed...">
+                    <select id="categoryInput">
+                        <option value="Lit">Literature</option>
+                        <option value="Meth">Methodology</option>
+                        <option value="Data">Data Analysis</option>
+                        <option value="Edit">Formatting/Grammar</option>
+                    </select>
                     <select id="priorityInput">
-                        <option value="High">High</option>
-                        <option value="Med">Med</option>
+                        <option value="High">Urgent</option>
+                        <option value="Med">Medium</option>
                         <option value="Low">Low</option>
                     </select>
-                    <button onclick="addTask()">Add</button>
+                    <button onclick="addTask()">Add to List</button>
                 </div>
-                <ul id="taskList"></ul>
             </div>
+
+            <div class="list-header">
+                <h3>Current Checklist</h3>
+            </div>
+            <ul id="taskList">
+                </ul>
         </main>
     </div>
 
     <script src="script.js"></script>
 </body>
 </html>
+
 
