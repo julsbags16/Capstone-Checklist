@@ -1,5 +1,5 @@
-const SUPABASE_URL = 'YOUR_SUPABASE_URL';
-const SUPABASE_KEY = 'YOUR_SUPABASE_KEY';
+const SUPABASE_URL = 'https://uypjfxlkcqukczskdwmt.supabase.co';
+const SUPABASE_KEY = 'process.env.SUPABASE_KEY';
 const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 // --- AUTH LOGIC ---
@@ -79,4 +79,5 @@ function renderTask(task) {
 }
 
 // Initialize
+
 checkUser();
