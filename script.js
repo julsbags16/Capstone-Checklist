@@ -1,5 +1,5 @@
 const SUPABASE_URL = 'https://uypjfxlkcqukczskdwmt.supabase.co';
-const SUPABASE_KEY = 'process.env.SUPABASE_KEY';
+const SUPABASE_KEY = 'sb_publishable_r8TrGXZdB56xhhTjukNZ8g_bxYY2o8U';
 const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 // --- AUTH LOGIC ---
@@ -81,4 +81,5 @@ function renderTask(task) {
 // Initialize
 
 checkUser();
+
 
