@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CapstoneFlow | Secure</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+
+    <div id="authContainer" class="auth-overlay">
+        <div class="auth-card">
+            <h2>Capstone Login</h2>
+            <input type="email" id="email" placeholder="Email">
+            <input type="password" id="password" placeholder="Password">
+            <div class="auth-buttons">
+                <button onclick="handleLogin()">Login</button>
+                <button onclick="handleSignup()" class="secondary">Sign Up</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="appMain" style="display: none;" class="layout">
+        <aside class="sidebar">
+            <div class="side-logo">🎓 Capstone<span>Flow</span></div>
+            <button onclick="handleLogout()" class="logout-btn">Log Out</button>
+        </aside>
+
+        <main class="main-content">
+            <header>
+                <h1>Revision Hub</h1>
+                <div class="progress-bar-bg"><div id="progressBar" class="progress-bar-fill"></div></div>
+            </header>
+
+            <div class="app-card">
+                <div class="input-container">
+                    <input type="text" id="taskInput" placeholder="New task...">
+                    <select id="priorityInput">
+                        <option value="High">High</option>
+                        <option value="Med">Med</option>
+                        <option value="Low">Low</option>
+                    </select>
+                    <button onclick="addTask()">Add</button>
+                </div>
+                <ul id="taskList"></ul>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
